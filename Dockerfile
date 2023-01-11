@@ -26,5 +26,8 @@ ARG FILE_PREXIF="raspberry-pi-os-lite-"${GH_TAG}"-"
 ARG FILESYSTEM_IMAGE_URL="https://github.com/carlosperate/rpi-os-custom-image/releases/download/"${GH_TAG}"/"${FILE_PREXIF}${FILE_SUFFIX}".zip"
 ADD $FILESYSTEM_IMAGE_URL /filesystem.zip
 
+COPY custom_entrypoint.sh /custom_entrypoint.sh
+RUN ["chmod", "+x", "/custom_entrypoint.sh"]
+
 # entrypoint.sh has been added in the parent lukechilds/dockerpi:vm
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/custom_entrypoint.sh"]
